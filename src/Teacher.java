@@ -4,6 +4,7 @@ public class Teacher implements Comparable<Teacher>{
     private String name;
     private String surname;
 
+    private String plec;
     private int birth_year;
     private double salary;
 
@@ -13,30 +14,37 @@ public class Teacher implements Comparable<Teacher>{
         this.birth_year = birthYear;
         this.salary = salary;
     }
-    public Teacher(String name, String surname){
+    public Teacher(String plec, String name,String surname){
         this.name = name;
         this.surname = surname;
+        this.plec=plec;
+
     }
     public int compareTo(Teacher teacher) {
-        int surnameCompare = this.surname.compareTo(teacher.surname);
-        if (surnameCompare == 0) {
+        if (this.surname.compareTo(teacher.surname)!=0){
+            return this.surname.compareTo((teacher.surname));
+        }
+        else {
             return this.name.compareTo(teacher.name);
-        } else{ return surnameCompare;}
-
+        }
     }
     public String getName() {return name;}
     public String getSurname() {return surname;}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this==obj) return true;
-        if(obj==null || getClass() != obj.getClass()) return false;
-        Teacher teacher = (Teacher) obj;
-        return name.equals(teacher.name) && surname.equals(teacher.surname);
-    }
-    public int hashCode(){
-        return Objects.hash(name,surname);
-    }
+    public double getSalary(){return salary;}
+
+    //zamisat tego trzeba uzyc comparatora
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this==obj) return true;
+//        if(obj==null || getClass() != obj.getClass()) return false;
+//        Teacher teacher = (Teacher) obj;
+//        return name.equals(teacher.name) && surname.equals(teacher.surname);
+//    }
+//    public int hashCode(){
+//        return Objects.hash(name,surname);
+//    }
 
 
 //    public double getSalary() {return salary;}
