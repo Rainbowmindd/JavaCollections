@@ -1,51 +1,102 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
+import java.util.Collections;
 
 //metoda max moze zwrocic nam najwyjzsze wynagrodzenie
 public class ClassTeacher{
     private String teacherGroupName;
     //lista nauczycieli
-    private List<Teacher> teachers;
+    private List<Teacher> listTeachers;
     private int maxTeacherNumber;
 
     ClassTeacher(String teacherGroupName, int maxTeacherNumber){
         this.teacherGroupName = teacherGroupName;
         this.maxTeacherNumber = maxTeacherNumber;
-        this.teachers = new ArrayList<>();
-    }
-    public String getTeacherGroupName(){return teacherGroupName;}
-    public int getMaxTeacherNumber(){return maxTeacherNumber;}
-
-
-gi
-    public void addTeacher(Teacher teacher){
-
-        if(teachers.size()>=maxTeacherNumber){
-            System.out.print("Przekroczona pojemnosc grupy.");
-        }
-
-        if(teachers.contains(teacher)){
-            System.out.println("Ten nauczyciel należy juz do grupy");
-        }
-        else{
-            teachers.add(teacher);
-            System.out.println("Nauczyciel "+teacher.getName() + " " + teacher.getSurname()+" dodany do grupy");
-        }
-
-
+        this.listTeachers = new ArrayList<>();
     }
 
-    public void addSalary(Teacher teacher, double salary){
-
-        if(!teachers.contains(teacher)){
-            double teachersSalary= teacher.getSalary();
-            double bonus=1000;
-
-            teachersSalary+=bonus;
-
-            System.out.println("PREMIA!!! Dodano 1000pln do wynagrodzenia, obecne wynagrodzenie: ");
-            System.out.println(teachersSalary);
+    public void addTeacher(Teacher teacher) {
+        if (listTeachers.size() >= maxTeacherNumber) {
+            System.out.println("GROUP IS FULL, cannot add new teacher");
+            return;
         }
 
+
+        Comparator<Teacher> teacherComparator = Comparator
+                .comparing(Teacher::getSurname)
+                .thenComparing(Teacher::getName);
+
+        boolean exists = listTeachers.stream()
+                .anyMatch(t -> teacherComparator.compare(t, teacher) == 0);
+
+        if (exists) {
+            System.out.println("This teacher ALREADY EXISTS in this group, please try another teacher");
+        } else {
+            listTeachers.add(teacher);
+            System.out.println("Teacher added successfully");
+        }
     }
+
+    public void addSalary(Teacher teacher, double bonus ){
+        teacher.setSalary(teacher.getSalary() + bonus);
+
+        System.out.println("CONGRATULATIONS! YOU'VE EARNED A BONUS TO YOUR SALARY! Current salary: "+teacher.getSalary());
+
+    }
+
+    public void removeTeacher(Teacher teacher){
+        listTeachers.remove(teacher);
+        System.out.println("Teacher removed successfully");
+    }
+    public void changeCondition(Teacher teacher, TeacherCondition condition){
+        teacher.setCondition(condition);
+    }
+
+    public Teacher search(String surnames) {
+        Comparator<Teacher> surnameComp = Comparator.comparing(Teacher::getSurname);
+        return listTeachers.stream()
+                .filter(teacher -> surnameComp.compare(teacher, new Teacher("", surnames, null, 0, 0.0)) == 0)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Teacher> searchPartial(String stringFragment){
+        List<Teacher> result=new ArrayList<>();
+        for(Teacher teacher : listTeachers){
+            if (teacher.getSurname().contains(stringFragment) || teacher.getName().contains(stringFragment)) {
+                result.add(teacher);
+            }
+        }
+        return result;
+    }
+
+    public long countByCondition(TeacherCondition condition){
+        return listTeachers.stream().filter(t->t.getCondition()==condition).count();
+    }
+
+    public void summary(){
+        listTeachers.forEach(Teacher::printing);
+    }
+
+    public List<Teacher> sortByName(){
+        Collections.sort(listTeachers, Comparator.comparing(Teacher::getName));
+        return listTeachers;
+    }
+    public List<Teacher> sortBySalary(){
+        Collections.sort(listTeachers, Comparator.comparing(Teacher::getSalary).reversed());
+        return listTeachers;
+    }
+    public Teacher max(){
+        return Collections.max(listTeachers, Comparator.comparing(Teacher::getSalary));
+    }
+
+    //for ClassContainer
+    public int getNumberOfTeachers(){
+        return listTeachers.size();
+    }
+    public int getMaxTeacherNumber(){
+        return maxTeacherNumber;
+    }
+
 }
