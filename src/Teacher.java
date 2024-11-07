@@ -1,4 +1,4 @@
-public class Teacher {
+public class Teacher implements Comparable<Teacher>{
     private String name;
     private String surname;
     private TeacherCondition condition;

@@ -24,8 +24,8 @@ public class ClassTeacher{
 
 
         Comparator<Teacher> teacherComparator = Comparator
-                .comparing(Teacher::getSurname)
-                .thenComparing(Teacher::getName);
+                .comparing(Teacher::getSurname) //jesli takie same then
+                .thenComparing(Teacher::getName); //porownywanie imion
 
         boolean exists = listTeachers.stream()
                 .anyMatch(t -> teacherComparator.compare(t, teacher) == 0);
@@ -64,7 +64,7 @@ public class ClassTeacher{
     public List<Teacher> searchPartial(String stringFragment){
         List<Teacher> result=new ArrayList<>();
         for(Teacher teacher : listTeachers){
-            if (teacher.getSurname().contains(stringFragment) || teacher.getName().contains(stringFragment)) {
+            if (teacher.getSurname().contains(stringFragment)) {
                 result.add(teacher);
             }
         }
