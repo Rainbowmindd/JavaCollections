@@ -17,7 +17,7 @@ public class ClassTeacher{
     public int getMaxTeacherNumber(){return maxTeacherNumber;}
 
 
-
+gi
     public void addTeacher(Teacher teacher){
 
         if(teachers.size()>=maxTeacherNumber){
