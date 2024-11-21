@@ -80,7 +80,7 @@ public class ClassTeacher{
     }
 
     public List<Teacher> sortByName(){
-        Collections.sort(listTeachers, Comparator.comparing(Teacher::getName));
+        Collections.sort(listTeachers, Comparator.comparing(Teacher::getName).reversed());
         return listTeachers;
     }
     public List<Teacher> sortBySalary(){

@@ -75,9 +75,9 @@ public class Main {
 //        }
 
         //4f search partial
-//        List<Teacher> partialSearchResult= historyGroup.searchPartial("Wis");
-//        System.out.println("\nPartial search result: ");
-//        partialSearchResult.forEach(System.out::println);
+        List<Teacher> partialSearchResult= historyGroup.searchPartial("at");
+        System.out.println("\nPartial search result: ");
+        partialSearchResult.forEach(System.out::println);
 
         //4g countByCondition
 
@@ -100,10 +100,10 @@ public class Main {
 
 
         //4i sort by name
-//        System.out.println("\nSorted by name: ");
-//        historyGroup.sortByName().forEach(Teacher::printing);
+        System.out.println("\nSorted by name: ");
+        historyGroup.sortByName().forEach(Teacher::printing);
 
-        //4j sorty by salary
+        //4j sort by salary
 //        System.out.println("\nSorted by salary: ");
 //        historyGroup.sortBySalary().forEach(Teacher::printing);
 
@@ -116,12 +116,12 @@ public class Main {
         //classContainer.removeClass("IT");
 
         //5c find empty
-//        System.out.println("Empty groups: ");
-//        List<String> emptyGroups=classContainer.findEmpty();
-//        System.out.println(emptyGroups);
+        System.out.println("Empty groups: ");
+        List<String> emptyGroups=classContainer.findEmpty();
+        System.out.println(emptyGroups);
 
         //5d summary
-       // classContainer.summary();
+       classContainer.summary();
 
 
 
