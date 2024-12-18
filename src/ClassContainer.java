@@ -25,7 +25,7 @@ public class ClassContainer {
     }
     public List<String> findEmpty(){
         List<String> emptyGroups=new ArrayList<>();
-        for(Map.Entry<String, ClassTeacher> entry : teacherGroups.entrySet()){
+        for(Map.Entry<String, ClassTeacher> entry : teacherGroups.entrySet()){ ///s
             if(entry.getValue().getNumberOfTeachers()==0){
                 emptyGroups.add(entry.getKey());
             }
